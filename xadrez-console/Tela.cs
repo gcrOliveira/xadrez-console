@@ -28,7 +28,7 @@ namespace xadrez_console
 
             for (int i = 0; i < tab.linhas; i++)
             {
-                Console.Write(8 - i + " ");
+                Console.Write(8 - i + "  ");
                 for (int j = 0; j < tab.colunas; j++)
                 {
                     if (posicoePossiveis[i, j])
@@ -101,7 +101,7 @@ namespace xadrez_console
         {
             if (peca == null)
             {
-                Console.Write("-");
+                Console.Write("- ");
             }
             else
             {

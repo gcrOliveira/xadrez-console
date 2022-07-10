@@ -8,7 +8,7 @@ namespace xadrez
     class PosicaoXadrez
     {
         public char coluna { get; set; }
-        public char linha { get; set; }
+        public int linha { get; set; }
 
         public PosicaoXadrez(char coluna, int linha)
         {

@@ -7,72 +7,86 @@ namespace xadrez
 {
     class Rei : Peca
     {
+
         private PartidaDeXadrez partida;
+
         public Rei(Tabuleiro tab, Cor cor, PartidaDeXadrez partida) : base(tab, cor)
         {
             this.partida = partida;
         }
+
         public override string ToString()
         {
             return "R";
         }
+
         private bool podeMover(Posicao pos)
         {
             Peca p = tab.peca(pos);
-            return p == null || p.cor != this.cor;
+            return p == null || p.cor != cor;
         }
+
+        private bool testeTorreParaRoque(Posicao pos)
+        {
+            Peca p = tab.peca(pos);
+            return p != null && p is Torre && p.cor == cor && p.qteMovimentos == 0;
+        }
+
         public override bool[,] movimentosPossiveis()
         {
             bool[,] mat = new bool[tab.linhas, tab.colunas];
+
             Posicao pos = new Posicao(0, 0);
-            // Acima
-            pos.definirValores(pos.linha - 1, posicao.coluna);
+
+            // acima
+            pos.definirValores(posicao.linha - 1, posicao.coluna);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // NE
-            pos.definirValores(pos.linha - 1, posicao.coluna + 1);
+            // ne
+            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // Direita
-            pos.definirValores(pos.linha, posicao.coluna + 1);
+            // direita
+            pos.definirValores(posicao.linha, posicao.coluna + 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // SE
-            pos.definirValores(pos.linha + 1, posicao.coluna + 1);
+            // se
+            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // S
-            pos.definirValores(pos.linha + 1, posicao.coluna);
+            // abaixo
+            pos.definirValores(posicao.linha + 1, posicao.coluna);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // SO
-            pos.definirValores(pos.linha + 1, posicao.coluna - 1);
+            // so
+            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // W
-            pos.definirValores(pos.linha, posicao.coluna - 1);
+            // esquerda
+            pos.definirValores(posicao.linha, posicao.coluna - 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
-            // Acima
-            pos.definirValores(pos.linha - 1, posicao.coluna - 1);
+            // no
+            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
             }
+
             // #jogadaespecial roque
             if (qteMovimentos == 0 && !partida.xeque)
             {
@@ -100,13 +114,9 @@ namespace xadrez
                     }
                 }
             }
+
+
             return mat;
-           
-        }
-        private bool testeTorreParaRoque(Posicao pos)
-        {
-            Peca p = tab.peca(pos);
-            return p != null && p is Torre && p.cor == cor && p.qteMovimentos == 0;
         }
     }
 }
